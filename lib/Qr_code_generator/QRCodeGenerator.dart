@@ -39,36 +39,38 @@ class _QRCodePlaygroundState extends State<QRCodePlayground> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            TextField(
-              controller: tfController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue))),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 200,
-              child: MaterialButton(
-                color: Colors.blue,
-                textColor: Colors.white,
-                onPressed: () => setState(() {}),
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: const Text('Generate QR Code'),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              TextField(
+                controller: tfController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue))),
               ),
-            ),
-            const SizedBox(height: 200),
-            tfController.text.isEmpty
-                ? const SizedBox.shrink()
-                : Screenshot(
-                controller: screenshotController,
-                child: QrImage(
-                  size: 200,
-                    backgroundColor: Colors.greenAccent,
-                    data: tfController.text)),
-          ],
+              const SizedBox(height: 20),
+              SizedBox(
+                width: 200,
+                child: MaterialButton(
+                  color: Colors.blue,
+                  textColor: Colors.white,
+                  onPressed: () => setState(() {}),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: const Text('Generate QR Code'),
+                ),
+              ),
+              const SizedBox(height: 200),
+              tfController.text.isEmpty
+                  ? const SizedBox.shrink()
+                  : Screenshot(
+                  controller: screenshotController,
+                  child: QrImage(
+                    size: 200,
+                      backgroundColor: Colors.greenAccent,
+                      data: tfController.text)),
+            ],
+          ),
         ),
       ),
     );

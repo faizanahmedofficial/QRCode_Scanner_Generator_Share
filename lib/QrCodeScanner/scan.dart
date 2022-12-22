@@ -53,8 +53,12 @@ class _ScanState extends State<ScanScreen> {
 
   Future scan() async {
     try {
-      String barcode = (await BarcodeScanner.scan()) as String;
-      setState(() => this.barcode = barcode);
+      var barcode = await BarcodeScanner.scan();
+      setState(() {
+        this.barcode = barcode.rawContent;
+      });
+      // String barcode = await BarcodeScanner.scan() as String;
+      // setState(() => this.barcode = barcode);
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.cameraAccessDenied) {
         setState(() {

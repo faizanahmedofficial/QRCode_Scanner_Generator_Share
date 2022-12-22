@@ -71,80 +71,82 @@ class GenerateScreenState extends State<GenerateScreen> {
 
   _contentWidget() {
     final bodyHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom;
-    return  Container(
-      color: const Color(0xFFFFFFFF),
-      child:  Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(
-              top: _topSectionTopPadding,
-              left: 20.0,
-              right: 10.0,
-              bottom: _topSectionBottomPadding,
-            ),
-            child:  SizedBox(
-              height: _topSectionHeight,
-              child:  Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Form(
-                    key: formkey,
-                    child: Expanded(
-                      child:  TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Can't Be Empty";
-                          } else {
-                            return null;
-                          }
-                        },
-                        controller: _textController,
-                        decoration:  InputDecoration(
-                          hintText: "Enter a custom message",
-                          errorText: _inputErrorText,
+    return  SingleChildScrollView(
+      child: Container(
+        color: const Color(0xFFFFFFFF),
+        child:  Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                top: _topSectionTopPadding,
+                left: 20.0,
+                right: 10.0,
+                bottom: _topSectionBottomPadding,
+              ),
+              child:  SizedBox(
+                height: _topSectionHeight,
+                child:  Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Form(
+                      key: formkey,
+                      child: Expanded(
+                        child:  TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Can't Be Empty";
+                            } else {
+                              return null;
+                            }
+                          },
+                          controller: _textController,
+                          decoration:  InputDecoration(
+                            hintText: "Enter a custom message",
+                            errorText: _inputErrorText,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child:  MaterialButton(
-                      color: Colors.blue,
-                      child:  const Text("SUBMIT",style: TextStyle(color: Colors.white),),
-                      onPressed: () {
-                        setState((){
-                          if (formkey.currentState!.validate()) {
-                            _dataString = _textController.text;
-                            _textController.clear();
-                          }
-                          // _inputErrorText = null;
-                        });
-                      },
-                    ),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child:  MaterialButton(
+                        color: Colors.blue,
+                        child:  const Text("SUBMIT",style: TextStyle(color: Colors.white),),
+                        onPressed: () {
+                          setState((){
+                            if (formkey.currentState!.validate()) {
+                              _dataString = _textController.text;
+                              _textController.clear();
+                            }
+                            // _inputErrorText = null;
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 200,),
-          Center(
-            child: RepaintBoundary(
-              key: globalKey,
-              child: QrImage(
-                backgroundColor: Colors.greenAccent,
-                data: _dataString,
-                size: 200,
-                // onError: (ex) {
-                //   print("[QR] ERROR - $ex");
-                //   setState((){
-                //     _inputErrorText = "Error! Maybe your input value is too long?";
-                //   });
-                // },
+            const SizedBox(height: 200,),
+            Center(
+              child: RepaintBoundary(
+                key: globalKey,
+                child: QrImage(
+                  backgroundColor: Colors.greenAccent,
+                  data: _dataString,
+                  size: 200,
+                  // onError: (ex) {
+                  //   print("[QR] ERROR - $ex");
+                  //   setState((){
+                  //     _inputErrorText = "Error! Maybe your input value is too long?";
+                  //   });
+                  // },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
